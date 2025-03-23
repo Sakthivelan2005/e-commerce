@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import loading from './Animations/Loading.gif';
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -21,7 +22,7 @@ function ProductList() {
    (async () => await fetchItem())()
   }, []);
 
-  return (isLoading === true)? <img src='./Animations/Loading.gif' alt='Loading...' /> : (
+  return (isLoading === true)? <img src={loading} alt='Loading...' /> : (
     <div>
       <h2>Products</h2>
       <ul>

@@ -6,7 +6,7 @@ function App() {
     <Router>
     <Navbar />
       <Routes>
-        <Route path="/" element={<h1>Welcome to Rakshitha Collection!</h1>} />
+        <Route path="/" element={<h1>Welcome to Kirana fashion</h1>} />
         <Route path="/products" element={ <ProductList />  } />
         <Route path="/cart" element={<h1>Cart Page</h1>} />
        </Routes>
