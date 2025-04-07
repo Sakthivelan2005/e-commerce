@@ -1,0 +1,111 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, #fdfbfb, #ebedee);
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 30px;
+  }
+  
+  .products {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 250px;
+    text-align: center;
+    margin: 15px;
+    display: inline-block;
+    vertical-align: top;
+  }
+  
+  .products:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+  }
+  
+  .products img {
+    border-radius: 15px;
+    object-fit: contain;
+    max-height: 200px;
+  }
+  
+  .products h3 {
+    font-size: 1.2rem;
+    color: #444;
+    margin: 15px 0 10px 0;
+    height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    padding: 17px;
+  }
+  
+  .products h5 {
+    font-size: 1.1rem;
+    color: #2ecc71;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+    display: ruby;
+    
+  }
+  
+  img[alt="Loading..."] {
+    display: block;
+    margin: 50px 50px auto;
+    width: 100px;
+  }
+  
+  /* 🔄 Fade-in animation for the entire product card */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*Pop-in effect for the image */
+@keyframes popIn {
+  0% {
+    transform: scale(0.8) rotate(-5deg);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+/*Apply animations to respective elements */
+.products {
+  animation: fadeInUp 0.7s ease forwards;
+  opacity: 0; /* Start hidden, will fade in */
+}
+
+.products img {
+  animation: popIn 0.6s ease forwards;
+  opacity: 0; /* Start hidden, will pop in */
+  animation-delay: 0.2s;
+}
+
+.products h5 {
+  animation: glow 2s infinite ease-in-out;
+}
