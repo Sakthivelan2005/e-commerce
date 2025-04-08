@@ -1,0 +1,133 @@
+/* Cart Container */
+.cart-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #f9f9f9;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  /* Title */
+  .cart-title {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  /* Table */
+  .cart-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    animation: slideIn 1s ease;
+  }
+  
+  .cart-table th,
+  .cart-table td {
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .cart-table th {
+    background-color: #f1f1f1;
+    color: #444;
+    font-weight: 600;
+  }
+  
+  .cart-table tr:hover {
+    background-color: #f0f8ff;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Buttons */
+  button {
+    background-color: #ff5252;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #e53935;
+    transform: scale(1.1);
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  /* Total */
+  .cart-total {
+    margin-top: 1rem;
+    text-align: right;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Empty Cart Text */
+  .cart-container p {
+    font-size: 1.2rem;
+    text-align: center;
+    padding: 2rem;
+    color: #777;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .cart-table thead {
+      display: none;
+    }
+  
+    .cart-table, .cart-table tbody, .cart-table tr, .cart-table td {
+      display: block;
+      width: 100%;
+    }
+  
+    .cart-table tr {
+      margin-bottom: 1rem;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+  
+    .cart-table td {
+      text-align: left;
+      padding: 0.75rem 1rem;
+      position: relative;
+    }
+  
+    .cart-table td::before {
+      content: attr(data-label);
+      font-weight: bold;
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+    }
+  
+    h3 {
+      text-align: center;
+    }
+  }
+  

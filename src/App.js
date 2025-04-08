@@ -2,14 +2,41 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProductList from './Pages/ProductList';
 import CartList from './Pages/Cart';
+import { CartProvider } from './Pages/CartContext';
 import { useState } from 'react';
+import ProductDetails from './Pages/ProductDetails';
 function App() {
-  const [country, setCountry] = useState('India');
 
+  const [country, setCountry] = useState('India');
   const handleCountry = (event) => {
     setCountry(event.target.value);
   };
+ const countryToCurrency = {
+    India: 'INR',
+    USA: 'USD',
+    Japan: 'JPY',
+    UK: 'GBP',
+    Germany: 'EUR',
+    Australia: 'AUD',
+    Canada: 'CAD',
+    China: 'CNY',
+    UAE: 'AED',
+    Singapore: 'SGD',
+  };
+  const countryToCurrencySymbol = {
+    India: '₹',       // Indian Rupee
+    USA: '$',         // US Dollar
+    Japan: '¥',       // Japanese Yen
+    UK: '£',          // British Pound
+    Germany: '€',     // Euro
+    Australia: 'A$',  // Australian Dollar
+    Canada: 'C$',     // Canadian Dollar
+    China: '¥',       // Chinese Yuan
+    UAE: 'د.إ',       // UAE Dirham
+    Singapore: 'S$',  // Singapore Dollar
+  };
   return (
+  <CartProvider>
     <Router>
       <select name="country" id="country" onChange={handleCountry}>
         <option value="India">India</option>
@@ -28,11 +55,25 @@ function App() {
         <Route path="/" element={<h1>Welcome to Kirana fashion</h1>} />
         <Route path="/products" element={ 
           <ProductList
-          selectedCountry = {country} />  
+          selectedCountry = {country} 
+          countryToCurrency = {countryToCurrency}
+          countryToCurrencySymbol = {countryToCurrencySymbol} />
           } />
-        <Route path="/cart" element={<CartList />} />
+        <Route path="/cart" element={
+          <CartList 
+          selectedCountry={country}
+          countryToCurrency={countryToCurrency}
+          countryToCurrencySymbol={countryToCurrencySymbol}/>
+          } />
+        <Route path='/product/:id' element={
+          <ProductDetails 
+          selectedCountry = {country}
+          countryToCurrency = {countryToCurrency}
+          countryToCurrencySymbol = {countryToCurrencySymbol} />
+          } />
        </Routes>
     </Router>
+  </CartProvider>
   );
 }
 
