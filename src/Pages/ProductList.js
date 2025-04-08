@@ -76,22 +76,31 @@ function ProductList({selectedCountry}) {
   const currencyCode = getCurrency(selectedCountry);
   const currencySymbol = getSymbol(selectedCountry);
   const rate = exchangeRate ? exchangeRate[currencyCode] : 1;
+  const UniqueCategory = [...new Set(products.map(p => p.category))];
+  
   return (isLoading === true)? <img src={loading} alt='Loading...' /> : (
     <div>
-      <h2>Products</h2>
-     
+     {UniqueCategory.map((category)=> 
+     <div> 
+          <h2>{category}</h2>
+          <div className='category'>
       <ul>
-        {products.map((product) => (
+        {products.filter(p => p.category === category).map((product) => (
           <div key={product.id}>
          <div className='products'>
+           <div className={`${product.category}`}>
             <img src={`${product.image}`} alt={`${product.title}`} width= {200} height={300} />
-            <h3>{product.title}</h3><br></br>
-              <h5>{currencySymbol} {(product.price * rate).toFixed(2)}</h5>
-            </div>
+            <h3>{product.title}</h3>
+            <br />
+              <h5>{currencySymbol} {(product.price * rate).toFixed(2)}</h5> 
+              </div>
+           </div>
           </div>
         ))}
       </ul>
-   
+      </div>
+      </div>
+      )}
     </div>
   );
 }
