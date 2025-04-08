@@ -63,9 +63,14 @@ body {
     display: inline-flex;
     
   }
-  .category {
-    overflow-x: scroll;
-  }
+
+ a{
+  text-decoration: none;
+ }
+
+ .category {
+  overflow-x: scroll;
+ }
   img[alt="Loading..."] {
     display: block;
     margin: 50px 50px auto;
