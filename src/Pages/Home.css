@@ -159,8 +159,9 @@ body {
     opacity: 1;
     bottom: 0;
   }
-  .price{
+  .product-grid p{
     color: green;
+    font-weight: bold;
   }
   /* Animations */
   @keyframes fadeUp {

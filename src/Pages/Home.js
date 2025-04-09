@@ -99,7 +99,7 @@ function Home({ Title, selectedCountry, countryToCurrency, countryToCurrencySymb
           <Link to={`/product/${product.id}`} key={product.id} className="product-card">
             <img src={product.image} alt={product.title} />
             <h3>{product.title.slice(0, 30)}...</h3>
-            <p className='price'>{currencySymbol}{(product.price * rate).toFixed(2)}</p>
+            <p>{currencySymbol}{(product.price * rate).toFixed(2)}</p>
             <div className="hover-details">View Details →</div>
           </Link>
         ))}
