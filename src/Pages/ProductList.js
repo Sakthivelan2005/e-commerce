@@ -67,7 +67,7 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
       <div className='category'>
            <div className={`${product.category}`}>
             <img src={`${product.image}`} alt={`${product.title}`} width= {200} height={300} />
-            <h3>{product.title}</h3>
+            <h3>{product.title.slice(0,30)}...</h3>
             <br />
               <h5>{currencySymbol} {ProductRate}</h5> 
               </div>

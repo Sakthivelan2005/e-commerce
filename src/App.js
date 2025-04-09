@@ -2,10 +2,11 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProductList from './Pages/ProductList';
 import CartList from './Pages/Cart';
+import Home from './Pages/Home';
 import { CartProvider } from './Pages/CartContext';
 import { useState } from 'react';
 import ProductDetails from './Pages/ProductDetails';
-function App() {
+function App({Title}) {
 
   const [country, setCountry] = useState('India');
   const handleCountry = (event) => {
@@ -52,7 +53,11 @@ function App() {
       </select>
     <Navbar />
       <Routes>
-        <Route path="/" element={<h1>Welcome to Kirana fashion</h1>} />
+        <Route path="/" element={<Home 
+         Title={Title}
+         selectedCountry = {country} 
+         countryToCurrency = {countryToCurrency}
+         countryToCurrencySymbol = {countryToCurrencySymbol}/>} />
         <Route path="/products" element={ 
           <ProductList
           selectedCountry = {country} 
