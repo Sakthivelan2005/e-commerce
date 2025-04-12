@@ -5,6 +5,6 @@ import App from './App';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <App 
-    Title={'Welcome to Kirana Collection'}/>
+    Title={'Welcome to Rakshita Collection'}/>
 );
 
