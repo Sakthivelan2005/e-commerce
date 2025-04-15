@@ -63,7 +63,8 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
         {products.filter(p => p.category === category).map((product) => {
           const ProductRate = (product.price * rate).toFixed(2);
           return(
-            <Link key={product.id} to={`/product/${product.id}`} className='products'>
+            <div key={product.id}>
+            <Link  to={`/product/${product.id}`} className='products'>
       <div className='category'>
            <div className={`${product.category}`}>
             <img src={`${product.image}`} alt={`${product.title}`} width= {200} height={300} />
@@ -73,6 +74,7 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
               </div>
            </div>
          </Link>
+         </div>
 )})}
       </ul>
       </div>

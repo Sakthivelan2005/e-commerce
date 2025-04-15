@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import FloatingCartIcon from './components/FloatingCartIcon';
 import ProductList from './Pages/ProductList';
 import CartList from './Pages/Cart';
 import Home from './Pages/Home';
-import { CartProvider } from './Pages/CartContext';
 import { useState } from 'react';
 import ProductDetails from './Pages/ProductDetails';
 function App({Title}) {
@@ -37,7 +37,6 @@ function App({Title}) {
     Singapore: 'S$',  // Singapore Dollar
   };
   return (
-  <CartProvider>
     <Router>
       <select name="country" id="country" onChange={handleCountry}>
         <option value="India">India</option>
@@ -52,6 +51,7 @@ function App({Title}) {
         <option value="Singapore">Singapore</option>
       </select>
     <Navbar />
+    <FloatingCartIcon />
       <Routes>
         <Route path="/" element={<Home 
          Title={Title}
@@ -78,7 +78,6 @@ function App({Title}) {
           } />
        </Routes>
     </Router>
-  </CartProvider>
   );
 }
 
