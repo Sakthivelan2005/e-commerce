@@ -38,7 +38,9 @@ function App({Title}) {
   };
   return (
     <Router>
-      <select name="country" id="country" onChange={handleCountry}>
+      <div style={{display: 'flex', alignItems: 'center', background: 'lightblue', height:'55px', width:'100%',position:'fixed',zIndex:'1', marginTop:'-60px' }}>
+    <Navbar />
+    <select name="country" id="country" onChange={handleCountry}>
         <option value="India">India</option>
         <option value="USA">USA</option>
         <option value="China">China</option>
@@ -50,8 +52,8 @@ function App({Title}) {
         <option value="UAE">UAE</option>
         <option value="Singapore">Singapore</option>
       </select>
-    <Navbar />
     <FloatingCartIcon />
+    </div>
       <Routes>
         <Route path="/" element={<Home 
          Title={Title}
