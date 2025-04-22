@@ -6,8 +6,10 @@ import CartList from './Pages/Cart';
 import Home from './Pages/Home';
 import { useState } from 'react';
 import ProductDetails from './Pages/ProductDetails';
+import Authentication from './components/Authentication';
 function App({Title}) {
 
+   const API_URL = "http://localhost:5000/Orders"
   const [country, setCountry] = useState('India');
   const handleCountry = (event) => {
     setCountry(event.target.value);
@@ -70,7 +72,8 @@ function App({Title}) {
           <CartList 
           selectedCountry={country}
           countryToCurrency={countryToCurrency}
-          countryToCurrencySymbol={countryToCurrencySymbol}/>
+          countryToCurrencySymbol={countryToCurrencySymbol}
+          API_URL = {API_URL} />
           } />
         <Route path='/product/:id' element={
           <ProductDetails 
@@ -78,6 +81,7 @@ function App({Title}) {
           countryToCurrency = {countryToCurrency}
           countryToCurrencySymbol = {countryToCurrencySymbol} />
           } />
+          <Route path='/Authentication' element={<Authentication />} />
        </Routes>
     </Router>
   );

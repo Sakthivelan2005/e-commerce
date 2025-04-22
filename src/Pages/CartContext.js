@@ -36,7 +36,7 @@ const removeFromCart = (id) => {
   const CartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
   console.log(cartItems);
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart,CartCount }}>
+    <CartContext.Provider value={{ cartItems, setCartItems, addToCart, removeFromCart,CartCount }}>
       {children}
     </CartContext.Provider>
   );
