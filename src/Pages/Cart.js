@@ -11,8 +11,7 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
   useEffect(() => {
     const fetchCurrency = async () => {
       try {
-        const response = await fetch(API_Currency);
-        const currency = await response.json();
+        const currency = await apiRequest(API_Currency);
         setExchangeRate(currency.conversion_rates);
       } catch (error) {
         console.error('Currency API error:', error);

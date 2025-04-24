@@ -9,7 +9,7 @@ import ProductDetails from './Pages/ProductDetails';
 import Authentication from './components/Authentication';
 function App({Title}) {
 
-   const API_URL = "http://localhost:5000/Orders"
+   const API_URL = "http://localhost:5001"
   const [country, setCountry] = useState('India');
   const handleCountry = (event) => {
     setCountry(event.target.value);
@@ -81,7 +81,9 @@ function App({Title}) {
           countryToCurrency = {countryToCurrency}
           countryToCurrencySymbol = {countryToCurrencySymbol} />
           } />
-          <Route path='/Authentication' element={<Authentication />} />
+          <Route path='/Authentication' element={
+            <Authentication 
+             API_URL = {API_URL} />} />
        </Routes>
     </Router>
   );
