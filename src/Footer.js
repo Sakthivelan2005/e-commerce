@@ -1,5 +1,5 @@
 import React from 'react';
-import './Footer.css'; // Style as needed
+import './Footer.css'
 import { FaFacebookF, FaInstagram, FaTwitter, FaArrowUp } from 'react-icons/fa';
 
 const Footer = () => {
@@ -31,10 +31,10 @@ const Footer = () => {
           <h3>Explore</h3>
           <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/shop">Shop</a></li>
-            <li><a href="/about">About Us</a></li>
-            <li><a href="/contact">Contact</a></li>
-            <li><a href="/faq">FAQs</a></li>
+            <li><a href="/products">Shop</a></li>
+            <li><a href="/">About Us</a></li>
+            <li><a href="/">Contact</a></li>
+            <li><a href="/">FAQs</a></li>
           </ul>
         </div>
 
