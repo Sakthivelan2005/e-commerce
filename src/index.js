@@ -12,7 +12,7 @@ root.render(
   <Provider>
     <GoogleOAuthProvider clientId={CLIENT_ID}>
         <App 
-    Title={'Welcome to Rakshita Collection'}/>
+    Title={'Welcome to Kirana Collection'}/>
     </GoogleOAuthProvider>
   </Provider>
 

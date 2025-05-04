@@ -1,11 +1,35 @@
-import { Link } from "react-router-dom";
-function Navbar(){
-    return (
-        <nav style={{padding: '10px', color: 'white' }}>
-             <Link to="/" style={{ margin: '0 15px', color: 'white', textDecoration: 'none' }}>Home</Link>
-             <Link to="/products" style={{ margin: '0 15px', color: 'white', textDecoration: 'none' }}>Products</Link>
-             <Link to="/Authentication" style={{ margin: '0 15px', color: 'white', textDecoration: 'none' }}>Login/Sign Up</Link>
-        </nav>
-    );
+import { Link, useLocation } from "react-router-dom";
+import { FaHome, FaShoppingBag, FaUser } from "react-icons/fa";
+import "./Navbar.css"; 
+
+function Navbar() {
+  const location = useLocation();
+
+  return (
+    <nav className="navbar">
+      <Link
+        to="/"
+        className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+      >
+        <FaHome className="icon" display={'none'}/>
+        <span>Home</span>
+      </Link>
+      <Link
+        to="/products"
+        className={`nav-link ${location.pathname === "/products" ? "active" : ""}`}
+      >
+        <FaShoppingBag className="icon" display={'none'}/>
+        <span>Products</span>
+      </Link>
+      <Link
+        to="/Authentication"
+        className={`nav-link ${location.pathname === "/Authentication" ? "active" : ""}`}
+      >
+        <FaUser className="icon" display={'none'}/>
+        <span>Login</span>
+      </Link>
+    </nav>
+  );
 }
-export default Navbar; 
+
+export default Navbar;

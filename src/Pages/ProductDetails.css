@@ -2,13 +2,13 @@
 
 .product-container {
     max-width: 800px;
-    margin: 2rem auto;
-    padding: 2rem;
+    padding: 55px 20px 20px 20px;
     background-color: #ffffff;
     border-radius: 16px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #333;
+    justify-self: center;
     transition: transform 0.3s ease;
   }
   
@@ -18,7 +18,7 @@
   
   .product-title {
     font-size: 2rem;
-    margin-bottom: 1rem;
+    padding: 0 0 1px 1%;
     color: #1e293b;
     text-align: center;
   }

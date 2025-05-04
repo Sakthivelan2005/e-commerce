@@ -1,0 +1,23 @@
+import menImg from './mens.png';
+import electImg from './electronic.png';
+import womImg from './womens.png' ;
+import jewlImg from './jewelry.png';
+import ban2Img from './Banner2.png';
+import men1Img from './menClothingImages/pexels-emrekeshavarz-3739943.jpg';
+import men2Img from './menClothingImages/pexels-ogproductionz-15606973.jpg';
+import men3Img from './menClothingImages/pexels-shkrabaanthony-5264948.jpg';
+import men4Img from './menClothingImages/pexels-solliefoto-298863.jpg';
+import wmen1 from './womenClothingImages/img1.jpg';
+import wmen2 from './womenClothingImages/img2.jpg';
+import wmen3 from './womenClothingImages/img3.jpg';
+import wmen4 from './womenClothingImages/img4.jpg';
+import jwl1 from './jewelryImages/img1.jpg';
+import jwl2 from './jewelryImages/img2.jpg';
+import jwl3 from './jewelryImages/img3.jpg';
+import jwl4 from './jewelryImages/img4.jpg';
+const images = [ban2Img,menImg,electImg,womImg,jewlImg];
+const menImages = [men1Img, men2Img, men3Img, men4Img];
+const womenImages = [wmen1,wmen2,wmen3,wmen4];
+const jewelryImages = [jwl1, jwl2, jwl3, jwl4];
+
+export {images, menImages, womenImages, jewelryImages};

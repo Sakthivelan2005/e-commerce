@@ -6,7 +6,9 @@ import './Authentication.css';
 import apiRequest from '../apiRequest';
 
 const Authentication = ({ API_URL }) => {
+  const reqAPI = `${API_URL}/Users`;
   const [isLogin, setIsLogin] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const navigate = useNavigate();
   const [User, setUser] = useState({
     name: '',
@@ -34,10 +36,10 @@ const Authentication = ({ API_URL }) => {
     };
 
     try {
-      const API = `${API_URL}/Users`;
-      const result = await apiRequest(API, PostOption);
+      const result = await apiRequest(reqAPI, PostOption);
       console.log("Sign up result:", result);
 
+      setIsAuthenticated(true)
       setUser({ name: '', email: '', password: '', address: '' });
       navigate('/');
     } catch (err) {
@@ -47,8 +49,8 @@ const Authentication = ({ API_URL }) => {
 
   const handleLogin = async () => {
     try {
-      const data = await apiRequest(`${API_URL}/Users`);
-      console.log("Fetched data from API:", data); // Check what this logs
+      const data = await apiRequest(reqAPI);
+      console.log("Fetched data from API:", data);
   
       if (!data || !Array.isArray(data)) {
         console.error("Expected array but got:", data);
@@ -64,12 +66,27 @@ const Authentication = ({ API_URL }) => {
       } else {
         alert("Account not found. Please enter correct Email and Password or Sign Up.");
       }
+      setIsAuthenticated(true)
     } catch (err) {
       console.error("While Fetching data: ", err);
     }
   };
   
   return (
+    isAuthenticated ? (
+      <div className="logout-container">
+        <h2>You are logged in</h2>
+        <button
+          className="login__button"
+          onClick={() => {
+            setIsAuthenticated(false);
+            setUser({ name: '', email: '', password: '', address: '' });
+          }}
+        >
+          Logout
+        </button>
+      </div>
+    ) : (
     <div className="login">
       <div className="login__form">
         <h1 className="login__title">{isLogin ? 'Login' : 'Sign Up'}</h1>
@@ -193,10 +210,38 @@ const Authentication = ({ API_URL }) => {
 
         <div className="Google">
           <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              console.log(jwtDecode(credentialResponse.credential));
+           onSuccess={async (credentialResponse) => {
+            const decoded = jwtDecode(credentialResponse.credential);
+          
+            const googleUser = {
+              name: decoded.name,
+              email: decoded.email,
+              password: '',
+              address: ''
+            };
+          
+            try {
+              const data = await apiRequest(reqAPI);
+              const existingUser = data.find((user) => user.email === googleUser.email);
+          
+              if (!existingUser) {
+                const PostOption = {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(googleUser)
+                };
+                await apiRequest(reqAPI, PostOption);
+              }
+              setUser(googleUser);
+              console.log(googleUser);
               navigate("/");
-            }}
+              setIsAuthenticated(true)
+          
+            } catch (error) {
+              console.error("Google login error:", error);
+            }
+          }}
+          
             onError={() => console.log("Login failed")}
           />
         </div>
@@ -216,6 +261,7 @@ const Authentication = ({ API_URL }) => {
         </p>
       </div>
     </div>
+    )
   );
 };
 

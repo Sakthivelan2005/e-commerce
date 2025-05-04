@@ -1,0 +1,18 @@
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25D366;
+    color: white;
+    padding: 12px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  @media (max-width: 480px) {
+    .floating-btn {
+      bottom: 130px;
+    }
+
+  }

@@ -1,0 +1,27 @@
+.category-section {
+    margin: 1rem;
+  }
+  .category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .view-all {
+    background: #d50057;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .image-scroll {
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 0.5rem;
+  }
+  .category-img {
+    height: 200px;
+    border-radius: 8px;
+  }

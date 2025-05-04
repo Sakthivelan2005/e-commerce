@@ -28,7 +28,6 @@
     z-index: 1001;
   }
   
-  /* Responsive sizes */
   @media (max-width: 480px) {
     /* Mobile */
     .cart-icon-wrapper {
@@ -37,7 +36,7 @@
       font-size: 30px !important;
     }
     .floating-cart-container {
-        bottom: 20px;
+        bottom: 80px;
       }
       .cart-icon-wrapper {
         border-radius: 50%;

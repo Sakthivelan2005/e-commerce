@@ -6,6 +6,8 @@ import apiRequest from '../apiRequest';
 function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol, API_URL }) {
   const { cartItems, removeFromCart, setCartItems  } = useCart();
   const [exchangeRate, setExchangeRate] = useState(null);
+  const [deliveryAddress, setDeliveryAddress] = useState('');
+  const [pinCode, setPinCode] = useState(null);
   const API_Currency = 'https://v6.exchangerate-api.com/v6/bc074b7ceb0708ddab718f71/latest/USD';
 
   useEffect(() => {
@@ -40,6 +42,8 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
         subtotal:`${currencySymbol} ${(item.quantity * item.price * rate).toFixed(2)}`
       })),
       total:`${currencyCode} ${total}`,
+      DeliveryAddress: `${deliveryAddress}`,
+      PinCode: `${pinCode}`,
       placedAt: new Date().toISOString()
     };
 
@@ -52,8 +56,9 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
     }
 
     try {
-      const response = await apiRequest(API_URL, PostOption);
-      console.log(response)
+      const reqAPI = `${API_URL}/Orders`;
+      const Result = await apiRequest(reqAPI, PostOption);
+      console.log("Google user POST result:", Result);
       alert('✅ Order placed successfully!');
       setCartItems([])
     } catch (error) {
@@ -62,6 +67,7 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
     }
   };
 
+console.log(deliveryAddress, pinCode)
   return (
     <>
       <div className="cart-container">
@@ -102,7 +108,14 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
         </div>
       </div>
       {(cartItems.length > 0 ) ? (
+        <div className='PlaceOrder'>
+          <label htmlFor='DeliveryDelatils'>Delivery Address</label>
+          <input type='text'  required name='DeliveryAddress' value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} placeholder='' /> 
+          <label htmlFor='DeliveryDelatils'>PIN Code</label>
+          <input type='number'  required name='DeliveryAddress' value={pinCode} onChange={(e) => setPinCode(e.target.value)} /> 
+
       <button onClick={handlePlaceOrder}>Place order</button>
+      </div>
       )
       :(null)}
     </>

@@ -1,0 +1,48 @@
+.carousel-container {
+  width: 100%;
+  max-width: 2400px;
+  height: 100%;
+  max-height: 800px;
+  overflow: hidden;
+  position: relative;
+  padding-top: 55px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-image {
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: lightgray;
+  border: none;
+  cursor: pointer;
+}
+
+.dot.active {
+  background-color: yellow;
+}
+
+
+@media (max-width: 640px) {
+  .carousel-container {
+    height: 200px;
+  }
+}

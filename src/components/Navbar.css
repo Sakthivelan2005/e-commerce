@@ -1,0 +1,60 @@
+/* Default navbar styles */
+.navbar {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+  
+  .nav-link {
+    margin: 0 15px;
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nav-link .icon {
+    font-size: 20px;
+    margin-bottom: 3px;
+  }
+  
+  .nav-link:hover {
+    transform: scale(1.1);
+    color: #ffd700;
+  }
+  
+  .nav-link.active {
+    color: #ff9100;
+    transform: scale(1.15);
+  }
+  
+  /* Responsive: Bottom nav for mobile */
+  @media (max-width: 480px) {
+    .navbar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      justify-content: space-around;
+      background-color: #111;
+      z-index: 1000;
+      padding: 8px 0;
+      border-top: 1px solid #444;
+    }
+  
+    .nav-link {
+      font-size: 12px;
+    }
+  
+    .nav-link .icon {
+      font-size: 18px;
+      display: block;
+    }
+    .nav-link.active {
+        color: aqua;
+    }
+  }
+  

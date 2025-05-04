@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import loading from './Animations/Loading.gif';
 import './ProductList.css';
 import { Link } from 'react-router-dom';
-function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbol}) {
-
+function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbol, API_URL}) {
+ const URL = API_URL;
   const getCurrency = (country) => {
  return countryToCurrency[country] || 'INR';
   } 
@@ -16,7 +16,6 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const API_Currency = 'https://v6.exchangerate-api.com/v6/bc074b7ceb0708ddab718f71/latest/USD';
-  const API_URL = 'https://fakestoreapi.com/products';
   useEffect(() => {
     const fetchCurency = async () =>{
         try{
@@ -34,7 +33,7 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
   useEffect(() => {
     const fetchItem = async () =>{
         try{
-        const response = await fetch(API_URL);
+        const response = await fetch(URL);
         if(!response.ok) throw Error ("Data not received")
         const listItems = await response.json();
         console.log(listItems);
@@ -46,7 +45,7 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
     }
    }
    (async () => await fetchItem())()
-  }, []);
+  }, [URL]);
 
   const currencyCode = getCurrency(selectedCountry);
   const currencySymbol = getSymbol(selectedCountry);
@@ -54,7 +53,7 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
   const UniqueCategory = [...new Set(products.map(p => p.category))];
   
   return (isLoading === true)? <img src={loading} alt='Loading...' /> : (
-    <div>
+    <div style={{paddingTop: '55px'}}>
      {UniqueCategory.map((category)=> 
      <div> 
           <h2>{category}</h2>
