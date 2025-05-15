@@ -8,6 +8,7 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
   const [exchangeRate, setExchangeRate] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [pinCode, setPinCode] = useState(null);
+  const [isPlaceOrder, setIsPlaceOrder] = useState(false);
   const API_Currency = 'https://v6.exchangerate-api.com/v6/bc074b7ceb0708ddab718f71/latest/USD';
 
   useEffect(() => {
@@ -59,17 +60,34 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
       const reqAPI = `${API_URL}/Orders`;
       const Result = await apiRequest(reqAPI, PostOption);
       console.log("Google user POST result:", Result);
-      alert('✅ Order placed successfully!');
-      setCartItems([])
+      setIsPlaceOrder(true);
+      setCartItems([]);
     } catch (error) {
       console.error('Error placing order:', error);
       alert('❌ Failed to place the order.');
     }
   };
-
+ 
+  if (isPlaceOrder)
+    setTimeout(() => {
+      setIsPlaceOrder(false);
+    }, 3000);
 console.log(deliveryAddress, pinCode)
   return (
     <>
+     {isPlaceOrder ? 
+     (<div className='alert'>
+      <div className="alert alert-success d-flex align-items-center" role="alert">
+        <svg xmlns="http://www.w3.org/2000/svg" className="d-none">
+        <symbol id="check-circle-fill" viewBox="0 0 16 16">
+          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+         </symbol>
+        </svg>
+        <div>
+          {'✅ Order placed successfully...!'}
+        </div>
+      </div>
+      </div>) : (null)}
       <div className="cart-container">
         <h2 className="cart-title">🧾 Your Cart Summary</h2>
 
@@ -109,12 +127,15 @@ console.log(deliveryAddress, pinCode)
       </div>
       {(cartItems.length > 0 ) ? (
         <div className='PlaceOrder'>
+          <form action={handlePlaceOrder} method="get" style={{textAlign:'center'}}>
+            <div className='PlaceOrder'>
           <label htmlFor='DeliveryDelatils'>Delivery Address</label>
           <input type='text'  required name='DeliveryAddress' value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} placeholder='' /> 
           <label htmlFor='DeliveryDelatils'>PIN Code</label>
           <input type='number'  required name='DeliveryAddress' value={pinCode} onChange={(e) => setPinCode(e.target.value)} /> 
-
-      <button onClick={handlePlaceOrder}>Place order</button>
+          </div>
+      <button type='submit' style={{placeSelf:'center'}}>Place order</button>
+      </form>
       </div>
       )
       :(null)}

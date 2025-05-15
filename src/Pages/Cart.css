@@ -8,7 +8,6 @@
   font-family: 'Segoe UI', sans-serif;
   place-self: center;
   width: 70%;
-  height: 500px;
   }
  
   /* Title */
@@ -133,3 +132,28 @@
     }
   }
   
+ .PlaceOrder {
+  padding: 20px;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.PlaceOrder label {
+  font-weight: bold;
+  color: #444;
+}
+
+.PlaceOrder input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+
+.alert{
+  z-index: 1;
+}

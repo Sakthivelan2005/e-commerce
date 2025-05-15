@@ -55,6 +55,11 @@
     height: 80px;
     animation: spin 2s linear infinite;
   }
+  .alert{
+    z-index: 1;
+    position: fixed;
+    justify-self: anchor-center;
+  }
   
   @keyframes spin {
     0% { transform: rotate(0deg); }
