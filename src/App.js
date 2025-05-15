@@ -70,8 +70,7 @@ function App({Title}) {
           <ProductList
           selectedCountry = {country} 
           countryToCurrency = {countryToCurrency}
-          countryToCurrencySymbol = {countryToCurrencySymbol}
-          API_URL={API_URL} />
+          countryToCurrencySymbol = {countryToCurrencySymbol} />
           } />
         <Route path="/cart" element={
           <CartList 
