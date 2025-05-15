@@ -60,6 +60,7 @@
 
  .category {
   overflow-x: scroll;
+  scrollbar-width: thin;
  }
 
   img[alt="Loading..."] {
