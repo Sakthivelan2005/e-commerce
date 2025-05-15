@@ -61,9 +61,11 @@
  .category {
   overflow-x: scroll;
  }
+
   img[alt="Loading..."] {
-    display: block;
-    margin: 50px 50px auto;
+   display: block;
+    margin: 0 50px auto;
+    padding: 100px 10px 90px 10px;
     width: 100px;
   }
   
