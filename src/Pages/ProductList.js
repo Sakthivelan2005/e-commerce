@@ -63,7 +63,7 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
           return(
             <div key={product.id}>
             <Link  to={`/product/${product.id}`} className='products'>
-      <div className='category'>
+      <div className='category-block'>
            <div className={`${product.category}`}>
             <img src={`${product.image}`} alt={`${product.title}`} width= {200} height={300} />
             <h3>{product.title.slice(0,30)}...</h3>
