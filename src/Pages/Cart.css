@@ -1,14 +1,16 @@
 /* Cart Container */
 .cart-container {
-    max-width: 1000px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #f9f9f9;
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    font-family: 'Segoe UI', sans-serif;
+  max-width: 1000px;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  font-family: 'Segoe UI', sans-serif;
+  place-self: center;
+  width: 70%;
+  height: 500px;
   }
-  
+ 
   /* Title */
   .cart-title {
     font-size: 2rem;
