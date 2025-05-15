@@ -12,7 +12,7 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
     return countryToCurrencySymbol[country] || '₹';
   }
 
-  const [exchangeRate, SetExchangeRate] = useState(null);
+  const [exchangeRate, setExchangeRate] = useState(null);
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const API_Currency = 'https://v6.exchangerate-api.com/v6/bc074b7ceb0708ddab718f71/latest/USD';
@@ -22,7 +22,7 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
         const response = await fetch(API_Currency);
         if(!response.ok) throw Error ("Data not received")
         const currency = await response.json();
-        SetExchangeRate(currency.conversion_rates);
+        setExchangeRate(currency.conversion_rates);
     } catch(err){
        console.log(err.message);
     }
@@ -46,7 +46,6 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
    }
    (async () => await fetchItem())()
   }, [URL]);
-
   const currencyCode = getCurrency(selectedCountry);
   const currencySymbol = getSymbol(selectedCountry);
   const rate = exchangeRate ? exchangeRate[currencyCode] : 1;
@@ -55,7 +54,7 @@ function ProductList({selectedCountry, countryToCurrency, countryToCurrencySymbo
   return (isLoading === true)? <img src={loading} alt='Loading...' /> : (
     <div style={{paddingTop: '55px'}}>
      {UniqueCategory.map((category)=> 
-     <div> 
+     <div key={category}> 
           <h2>{category}</h2>
           <div className='category'>
       <ul>
