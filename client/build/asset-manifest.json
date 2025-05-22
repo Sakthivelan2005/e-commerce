@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4c96e69d.css",
+    "main.js": "/static/js/main.e4680a38.js",
+    "static/media/womens.png": "/static/media/womens.aec0e6d01368db34f67b.png",
+    "static/media/mens.png": "/static/media/mens.34e99623c3f3dbc33d15.png",
+    "static/media/jewelry.png": "/static/media/jewelry.ccf225c43959ea760d53.png",
+    "static/media/electronic.png": "/static/media/electronic.f4f942584480c461b42d.png",
+    "static/media/Banner2.png": "/static/media/Banner2.52e8a52a0e50abfcc773.png",
+    "static/media/img3.jpg": "/static/media/img3.02f15a9374df0321bfe0.jpg",
+    "static/media/img4.jpg": "/static/media/img4.47a7f5cc8e1e883a4de1.jpg",
+    "static/media/pexels-emrekeshavarz-3739943.jpg": "/static/media/pexels-emrekeshavarz-3739943.69554e342c796d728c63.jpg",
+    "static/media/img1.jpg": "/static/media/img1.1762254fac76dd3c4004.jpg",
+    "static/media/pexels-shkrabaanthony-5264948.jpg": "/static/media/pexels-shkrabaanthony-5264948.b975568774aa8b594614.jpg",
+    "static/media/img2.jpg": "/static/media/img2.6d9d814659781e5bffd3.jpg",
+    "static/media/pexels-ogproductionz-15606973.jpg": "/static/media/pexels-ogproductionz-15606973.a1893f9505c107c9f0da.jpg",
+    "static/media/pexels-solliefoto-298863.jpg": "/static/media/pexels-solliefoto-298863.e3ae43999a3adaf25d07.jpg",
+    "static/media/Loading.gif": "/static/media/Loading.e5107db37145f25edeab.gif",
+    "index.html": "/index.html",
+    "main.4c96e69d.css.map": "/static/css/main.4c96e69d.css.map",
+    "main.e4680a38.js.map": "/static/js/main.e4680a38.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4c96e69d.css",
+    "static/js/main.e4680a38.js"
+  ]
+}
