@@ -13,7 +13,7 @@ import axios from 'axios';
 function App({Title}) {
 
    const API_URL = 'https://fakestoreapi.com/products';
-   const API_USER = 'https://e-commerce-qa5o.onrender.com/5001';   
+   const API_USER = 'https://e-commerce-qa5o.onrender.com';   
 
    useEffect(() => {
     axios.get('http://localhost:5000')

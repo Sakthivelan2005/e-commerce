@@ -41,7 +41,7 @@ const Authentication = ({ API_USER }) => {
 
       setIsAuthenticated(true)
       setUser({ name: '', email: '', password: '', address: '' });
-      if (result === null) {
+      if (!result) {
         alert('Sign up Failed')
       }
       else{
