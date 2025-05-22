@@ -1,18 +1,18 @@
-const apiRequest = async (url ='', optionsObj = null, errMsg = null) => {
-   try {
-      const response = await fetch(url, optionsObj);
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-  
-      const result = await response.json();
-      return result;
-    } catch (err) {
-      console.error("apiRequest error:", err);
-      errMsg = err.message;
-      return errMsg; 
+const apiRequest = async (url = '', optionsObj = null) => {
+  try {
+    const response = await fetch(url, optionsObj);
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return { error: true, status: response.status, message: data.message || 'Unknown error' };
     }
-  };
-  
-  export default apiRequest;
+
+    return { success: true, data }; 
+  } catch (err) {
+    console.error("apiRequest error:", err);
+    return { error: true, message: err.message || 'Network error' };
+  }
+};
+
+export default apiRequest;

@@ -37,17 +37,15 @@ const Authentication = ({ API_USER }) => {
 
     try {
       const result = await apiRequest(reqAPI, PostOption);
-      console.log("Sign up result:", result);
-
-      setIsAuthenticated(true)
-      setUser({ name: '', email: '', password: '', address: '' });
-      if (!result) {
-        alert('Sign up Failed')
+      console.log('Result: ',result,'\nData sending: ',User,'\ndata posted: ',PostOption);
+      if (result.error) {
+        alert(result.message || 'Sign up Failed');
+      } else {
+        setIsAuthenticated(true)
+        setUser({ name: '', email: '', password: '', address: '' });
+        alert('Sign up Success');
+        navigate('/');
       }
-      else{
-          alert('Sign up Success')
-         navigate('/');
-    }
     } catch (err) {
       console.error("User error: ", err);
     }
