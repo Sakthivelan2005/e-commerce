@@ -16,7 +16,7 @@ function App({Title}) {
    const API_USER = 'https://e-commerce-qa5o.onrender.com';   
 
    useEffect(() => {
-    axios.get('http://localhost:5000')
+    axios.get(API_USER)
       .then(res => {
         console.log('Response from backend:', res.data);
       })
