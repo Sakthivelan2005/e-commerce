@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "client": "npm start --prefix client",
-    "server": "node server/index.js",
+    "start": "node server/index.js",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
