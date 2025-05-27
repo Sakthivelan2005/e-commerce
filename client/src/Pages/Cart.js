@@ -2,21 +2,23 @@ import { useCart } from './CartContext';
 import { useEffect, useState } from 'react';
 import './Cart.css';
 import apiRequest from '../apiRequest';
+import { useNavigate } from 'react-router-dom';
 
-function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol, API_URL }) {
+function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol, API_USER, isAuthenticated }) {
   const { cartItems, removeFromCart, setCartItems  } = useCart();
   const [exchangeRate, setExchangeRate] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState('');
-  const [pinCode, setPinCode] = useState(null);
+  const [pinCode, setPinCode] = useState('');
   const [isPlaceOrder, setIsPlaceOrder] = useState(false);
   const API_Currency = 'https://v6.exchangerate-api.com/v6/bc074b7ceb0708ddab718f71/latest/USD';
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCurrency = async () => {
       try {
         const currency = await apiRequest(API_Currency);
-        setExchangeRate(currency.conversion_rates);
-      } catch (error) {
+        setExchangeRate(currency.data.conversion_rates);
+       } catch (error) {
         console.error('Currency API error:', error);
       }
     };
@@ -25,54 +27,71 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
 
   const currencyCode = countryToCurrency[selectedCountry] || 'INR';
   const currencySymbol = countryToCurrencySymbol[selectedCountry] || '₹';
-  const rate = exchangeRate ? exchangeRate[currencyCode] : 1;
+  const rate = exchangeRate && exchangeRate[currencyCode] ? exchangeRate[currencyCode] : 1;
 
   const total = cartItems.reduce(
     (sum, item) => sum + item.quantity * item.price * rate,
     0
   ).toFixed(2);
 
+  const handleLogin = () => {
+    navigate('/Authentication')
+  }
+
   const handlePlaceOrder = async () => {
+    const token = localStorage.getItem("token")
+    console.log(token);
     const orderData = {
       country: selectedCountry,
       items: cartItems.map(item => ({
         id: item.id,
         title: item.title,
-        price: `${currencySymbol} ${(item.price * rate).toFixed(2)}`,
+        price: (item.price * rate).toFixed(2),
+        currencySymbol: currencySymbol,
         quantity: item.quantity,
-        subtotal:`${currencySymbol} ${(item.quantity * item.price * rate).toFixed(2)}`
+        subtotal:(item.quantity * item.price * rate).toFixed(2)
       })),
-      total:`${currencyCode} ${total}`,
+      total: total,
       DeliveryAddress: `${deliveryAddress}`,
-      PinCode: `${pinCode}`,
+      PinCode: pinCode,
       placedAt: new Date().toISOString()
     };
 
     const PostOption = {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "authorization": `Bearer ${token}`
       },
       body: JSON.stringify(orderData)
     }
 
     try {
-      const reqAPI = `${API_URL}/Orders`;
+      const reqAPI = `${API_USER}/Orders`;
       const Result = await apiRequest(reqAPI, PostOption);
       console.log("Google user POST result:", Result);
+      if (Result.error === true){
+        alert(`${Result.message}`)
+      }
+      else{
       setIsPlaceOrder(true);
       setCartItems([]);
+      }
     } catch (error) {
       console.error('Error placing order:', error);
       alert('❌ Failed to place the order.');
     }
   };
  
-  if (isPlaceOrder)
-    setTimeout(() => {
+  useEffect(() => {
+  if (isPlaceOrder) {
+    const timer = setTimeout(() => {
       setIsPlaceOrder(false);
     }, 3000);
-console.log(deliveryAddress, pinCode)
+    return () => clearTimeout(timer);
+  }
+}, [isPlaceOrder]);
+localStorage.getItem('Items');
   return (
     <>
      {isPlaceOrder ? 
@@ -125,17 +144,29 @@ console.log(deliveryAddress, pinCode)
           <h3>Total: {`${currencySymbol} ${total}`}</h3>
         </div>
       </div>
-      {(cartItems.length > 0 ) ? (
+      {(cartItems.length > 0 ) ?(
         <div className='PlaceOrder'>
-          <form action={handlePlaceOrder} method="get" style={{textAlign:'center'}}>
+         { !isAuthenticated? (<p>Please <button onClick={() => handleLogin()}>login / Sign Up</button> to place your Orders</p>)
+          :
+          (<form onSubmit={(e) => { e.preventDefault(); handlePlaceOrder(); }} style={{textAlign:'center'}}>
             <div className='PlaceOrder'>
           <label htmlFor='DeliveryDelatils'>Delivery Address</label>
           <input type='text'  required name='DeliveryAddress' value={deliveryAddress} onChange={(e) => setDeliveryAddress(e.target.value)} placeholder='' /> 
           <label htmlFor='DeliveryDelatils'>PIN Code</label>
-          <input type='number'  required name='DeliveryAddress' value={pinCode} onChange={(e) => setPinCode(e.target.value)} /> 
+          <input type='number'  required name='PINcode' value={pinCode} onChange={(e) => setPinCode(e.target.value)} /> 
           </div>
-      <button type='submit' style={{placeSelf:'center'}}>Place order</button>
-      </form>
+      <button type='submit' 
+      style={{
+        placeSelf:'center',
+        backgroundColor: '#ff5252',
+        color: 'white',
+        border: 'none',
+        padding: '0.5rem 1rem',
+        fontSize: '1rem'
+        }}>
+        Place order
+        </button>
+      </form>)}
       </div>
       )
       :(null)}

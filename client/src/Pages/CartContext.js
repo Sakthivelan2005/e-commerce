@@ -31,10 +31,12 @@ const removeFromCart = (id) => {
       return prevItems.filter(p => p.id !== id);
     }
   });
+
+  
+  localStorage.setItem('Items', cartItems)
 };
 
   const CartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
-  console.log(cartItems);
   return (
     <CartContext.Provider value={{ cartItems, setCartItems, addToCart, removeFromCart,CartCount }}>
       {children}

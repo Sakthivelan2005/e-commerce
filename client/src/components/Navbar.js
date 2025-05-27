@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { FaHome, FaShoppingBag, FaUser } from "react-icons/fa";
 import "./Navbar.css"; 
 
-function Navbar() {
+function Navbar({isAuthenticated}) {
   const location = useLocation();
 
   return (
@@ -26,7 +26,7 @@ function Navbar() {
         className={`nav-link ${location.pathname === "/Authentication" ? "active" : ""}`}
       >
         <FaUser className="icon" display={'none'}/>
-        <span>Login</span>
+        <span>{isAuthenticated? 'Logout' : 'Login'}</span>
       </Link>
     </nav>
   );

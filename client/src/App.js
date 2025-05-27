@@ -13,7 +13,8 @@ import axios from 'axios';
 function App({Title}) {
 
    const API_URL = 'https://fakestoreapi.com/products';
-   const API_USER = 'https://e-commerce-qa5o.onrender.com';   
+   const API_USER = 'http://localhost:5001';   
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
    useEffect(() => {
     axios.get(API_USER)
@@ -56,7 +57,8 @@ function App({Title}) {
   return (
     <Router>
       <div style={{display: 'flex', alignItems: 'center', background: 'lightblue', height:'55px', width:'100%',position:'fixed',zIndex:'1', marginTop:'0px' }}>
-    <Navbar />
+    <Navbar 
+    isAuthenticated = {isAuthenticated}/>
     <select name="country" id="country" onChange={handleCountry}>
         <option value="India">India</option>
         <option value="USA">USA</option>
@@ -90,17 +92,22 @@ function App({Title}) {
           selectedCountry={country}
           countryToCurrency={countryToCurrency}
           countryToCurrencySymbol={countryToCurrencySymbol}
-          API_USER = {API_USER} />
+          API_USER = {API_USER} 
+          isAuthenticated = {isAuthenticated}/>
           } />
         <Route path='/product/:id' element={
           <ProductDetails 
           selectedCountry = {country}
           countryToCurrency = {countryToCurrency}
-          countryToCurrencySymbol = {countryToCurrencySymbol} />
+          countryToCurrencySymbol = {countryToCurrencySymbol}
+          API_URL ={API_URL} />
           } />
           <Route path='/Authentication' element={
             <Authentication 
-             API_USER = {API_USER} />} />
+             API_USER = {API_USER}
+             isAuthenticated = {isAuthenticated}
+             setIsAuthenticated = {setIsAuthenticated}
+              />} />
        </Routes>
        <Footer />
     </Router>

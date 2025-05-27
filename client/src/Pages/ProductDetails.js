@@ -5,7 +5,7 @@ import './ProductDetails.css';
 import { useCart } from './CartContext';
 function ProductDetails({selectedCountry,countryToCurrency, countryToCurrencySymbol}) {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAddtoCart, setIsAddtoCart] = useState(false);
   const [exchangeRate, SetExchangeRate] = useState(null);
@@ -57,10 +57,13 @@ if(isAddtoCart){
   const currencyCode = getCurrency(selectedCountry);
   const currencySymbol = getSymbol(selectedCountry);
   const rate = exchangeRate ? exchangeRate[currencyCode] : 1;
-
-  if (!product) return <img src={loading} alt='Loading...' /> ;
-
-  return (isLoading === true)? <img src={loading} alt='Loading...' /> : (
+  console.log(product)
+  return (isLoading)?  ( 
+    <>
+    <img src={loading} alt='Loading...' />
+    <p>Fetching Products</p>
+    </>
+  ) : (
     <div className="product-container">
        {isAddtoCart ? (<div className="alert alert-success d-flex align-items-center" role="alert">
         <div>

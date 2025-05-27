@@ -5,10 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import './Authentication.css';
 import apiRequest from '../apiRequest';
 
-const Authentication = ({ API_USER }) => {
+const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated }) => {
   const reqAPI = `${API_USER}/Users`;
   const [isLogin, setIsLogin] = useState(true);
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
   const navigate = useNavigate();
   const [User, setUser] = useState({
     name: '',
@@ -42,9 +41,11 @@ const Authentication = ({ API_USER }) => {
         alert(result.message || 'Sign up Failed');
       } else {
         setIsAuthenticated(true)
+        localStorage.setItem("token", result.token);
+        console.log(result.token);
         setUser({ name: '', email: '', password: '', address: '' });
-        alert('Sign up Success');
-        navigate('/');
+        alert(result.message);
+        navigate(-1);
       }
     } catch (err) {
       console.error("User error: ", err);
@@ -62,14 +63,16 @@ const handleLogin = async () => {
   };
 
   try {
-    const result = await apiRequest(`${API_USER}/login`, loginOptions);
-
-    if (result.message === 'Login successful') {
-      localStorage.setItem('token', result.token);
-      setIsAuthenticated(true);
-      navigate("/");
+     const result = await apiRequest(`${API_USER}/login`, loginOptions);
+    
+    console.log('result: ', result);
+    if (result.error) {
+      alert(`${result.message}`);
     } else {
-      alert("Invalid credentials");
+      localStorage.setItem("token", result.data.token);
+      console.log(result.data.token);
+      setIsAuthenticated(true);
+      navigate(-1);
     }
   } catch (err) {
     console.error("Login error:", err);
@@ -236,7 +239,7 @@ const handleLogin = async () => {
               }
               setUser(googleUser);
               console.log(googleUser);
-              navigate("/");
+              navigate(-1);
               setIsAuthenticated(true)
           
             } catch (error) {

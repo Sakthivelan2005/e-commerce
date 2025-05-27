@@ -153,7 +153,25 @@
   font-size: 1rem;
 }
 
+.PlaceOrder p{
+     text-align: center;
+    background-color: #2fc8ff;
+    color: white;
+    border-radius: 35px;
+    padding: 8px;
+    margin: 0 31% 0 31%;
+}
+
+.PlaceOrder button{
+  text-decoration: none;
+    color: #2fc8ff;
+    background-color: white;
+    border-radius: 20px;
+    padding: 8px;
+}
+
 
 .alert{
   z-index: 1;
+  position: fixed;
 }

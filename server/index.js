@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const userRoutes = require('./routes/userRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 const app = express();
 
@@ -17,6 +18,7 @@ mongoose.connect(process.env.MONGODB_URL).then(() => console.log('✅ MongoDB Co
 
 // Routes
 app.use('/', userRoutes);
+app.use('/', orderRoutes);
 
 app.get('/', (req, res) => {
   res.send('Server is Running...');
