@@ -14,7 +14,9 @@ function App({Title}) {
 
    const API_URL = 'https://fakestoreapi.com/products';
    const API_USER = 'http://localhost:5001';   
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return !!localStorage.getItem("token");
+  })
 
    useEffect(() => {
     axios.get(API_USER)

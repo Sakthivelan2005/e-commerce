@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from 'react-router-dom';
@@ -41,8 +41,9 @@ const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated }) => {
         alert(result.message || 'Sign up Failed');
       } else {
         setIsAuthenticated(true)
-        localStorage.setItem("token", result.token);
-        console.log(result.token);
+        localStorage.setItem("token", result.data.token);
+        localStorage.setItem("user", JSON.stringify(result.data));
+        console.log(result.data.token);
         setUser({ name: '', email: '', password: '', address: '' });
         alert(result.message);
         navigate(-1);
@@ -70,6 +71,7 @@ const handleLogin = async () => {
       alert(`${result.message}`);
     } else {
       localStorage.setItem("token", result.data.token);
+      localStorage.setItem("user", JSON.stringify(result.data));
       console.log(result.data.token);
       setIsAuthenticated(true);
       navigate(-1);
@@ -79,6 +81,23 @@ const handleLogin = async () => {
   }
 };
   
+useEffect(() => {
+  const storedUser = localStorage.getItem("user");
+  const token = localStorage.getItem("token");
+
+  console.log("storedUser:", storedUser); // <== log this
+
+  if (storedUser && token) {
+    try {
+      setUser(JSON.parse(storedUser));
+      setIsAuthenticated(true);
+    } catch (error) {
+      console.error("Failed to parse storedUser:", error);
+      localStorage.removeItem("user"); // clean bad data
+    }
+  }
+}, [setIsAuthenticated]);
+
   return (
     isAuthenticated ? (
       <div className="logout-container">
@@ -88,6 +107,8 @@ const handleLogin = async () => {
           onClick={() => {
             setIsAuthenticated(false);
             setUser({ name: '', email: '', password: '', address: '' });
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
           }}
         >
           Logout
@@ -235,13 +256,12 @@ const handleLogin = async () => {
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify(googleUser)
                 };
-                await apiRequest(reqAPI, PostOption);
-              }
-              setUser(googleUser);
-              console.log(googleUser);
+                const loginResult = await apiRequest(reqAPI, PostOption);
+                setUser(googleUser);
+               localStorage.setItem("user", JSON.stringify(loginResult.data));
               navigate(-1);
               setIsAuthenticated(true)
-          
+              }
             } catch (error) {
               console.error("Google login error:", error);
             }

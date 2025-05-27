@@ -1,4 +1,11 @@
-
+.logout-container h2{
+  text-align: center;
+}
+.logout-container button{
+ margin: 3% 40% 3% 40%;
+ width: 15%;
+ border-radius: 30px;
+}
 .login {
     display: flex;
     justify-content: center;
