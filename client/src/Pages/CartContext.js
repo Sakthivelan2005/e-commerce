@@ -1,9 +1,23 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 const CartContext = createContext();
 
 export function Provider({ children }) {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+  try {
+    const storedCart = localStorage.getItem('Items');
+    return storedCart ? JSON.parse(storedCart) : [];
+  } catch (e) {
+    console.error("Invalid cart data in localStorage. Resetting cart.");
+    localStorage.removeItem('Items');
+    return [];
+  }
+});
+
+
+  useEffect(() => {
+    localStorage.setItem('Items', JSON.stringify(cartItems));
+  }, [cartItems]);
   const addToCart = (item) => {
     setCartItems((prevItems) => {
       const existingItemIndex = prevItems.findIndex(p => p.id === item.id);
@@ -32,8 +46,6 @@ const removeFromCart = (id) => {
     }
   });
 
-  
-  localStorage.setItem('Items', cartItems)
 };
 
   const CartCount = cartItems.reduce((total, item) => total + item.quantity, 0);
