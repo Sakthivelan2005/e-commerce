@@ -29,7 +29,8 @@ const OrderSchema = new mongoose.Schema(
       },
       placedAt: {
         type: Date,
-        default: Date.now()
+        immutable: true,
+        default: () => Date.now()
       }
     }
 )
