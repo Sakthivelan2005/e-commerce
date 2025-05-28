@@ -65,11 +65,6 @@ if(isAddtoCart){
     </>
   ) : (
     <div className="product-container">
-       {!isAddtoCart ? (<div className="alert alert-success d-flex align-items-center" role="alert">
-        <div>
-          {`✅ ${product.title} is added to Cart`}
-        </div>
-      </div>) : (null)}
     <h2 className="product-title">{product.title}</h2>
     <img
       src={product.image}
@@ -104,7 +99,13 @@ if(isAddtoCart){
 >
   Add To Cart
 </button>
+{!isAddtoCart ? (<div className="alert alert-success d-flex align-items-center" role="alert">
+        <div>
+          {`✅ ${product.title} is added to Cart`}
+        </div>
+      </div>) : (null)}
   </div>
+  
   );
 }
 

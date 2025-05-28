@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import apiRequest from '../apiRequest';
 import { useLocation } from 'react-router-dom';
 import './Authentication.css';
-
+import { useNavigate } from 'react-router-dom';
 const ResetPassword = ({ API_USER }) => {
+  const navigate = useNavigate();
   const location = useLocation();
   const {email} = location.state.email || {};
   const [newPassword, setNewPassword] = useState('');
@@ -23,6 +24,8 @@ const ResetPassword = ({ API_USER }) => {
         setMessage(res.message);
       } else {
         setMessage("Password reset successfully.");
+        navigate('/Authentication')
+        
       }
     } catch (err) {
       console.error("Reset password error:", err);
