@@ -56,7 +56,7 @@
     animation: spin 2s linear infinite;
   }
   .alert{
-    z-index: 1;
+    z-index: 5;
     position: fixed;
     justify-self: anchor-center;
   }

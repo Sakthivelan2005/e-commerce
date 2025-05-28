@@ -7,7 +7,7 @@ function ProductDetails({selectedCountry,countryToCurrency, countryToCurrencySym
   const { id } = useParams();
   const [product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [isAddtoCart, setIsAddtoCart] = useState(false);
+  const [isAddtoCart, setIsAddtoCart] = useState(true);
   const [exchangeRate, SetExchangeRate] = useState(null);
   const API_Currency = 'https://v6.exchangerate-api.com/v6/bc074b7ceb0708ddab718f71/latest/USD';
   const { addToCart } = useCart();
@@ -65,7 +65,7 @@ if(isAddtoCart){
     </>
   ) : (
     <div className="product-container">
-       {isAddtoCart ? (<div className="alert alert-success d-flex align-items-center" role="alert">
+       {!isAddtoCart ? (<div className="alert alert-success d-flex align-items-center" role="alert">
         <div>
           {`✅ ${product.title} is added to Cart`}
         </div>
