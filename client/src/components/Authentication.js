@@ -13,7 +13,7 @@ const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated }) => {
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  const From = location.state.from;
+  const From = location.state?.from;
   console.log(From)
   const [User, setUser] = useState({
     name: '',
