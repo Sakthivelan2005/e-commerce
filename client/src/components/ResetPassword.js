@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import apiRequest from '../apiRequest';
+import { useLocation } from 'react-router-dom';
 import './Authentication.css';
 
 const ResetPassword = ({ API_USER }) => {
-  const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
-  const [password, setPassword] = useState('');
+  const location = useLocation();
+  const {email} = location.state.email || {};
+  const [newPassword, setNewPassword] = useState('');
+  console.log(email, newPassword)
   const [message, setMessage] = useState('');
-
   const handleReset = async (e) => {
     e.preventDefault();
 
@@ -16,9 +16,9 @@ const ResetPassword = ({ API_USER }) => {
       const res = await apiRequest(`${API_USER}/reset-password`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token, password })
+        body: JSON.stringify({ email, newPassword })
       });
-
+      
       if (res.error) {
         setMessage(res.message);
       } else {
@@ -35,6 +35,7 @@ const ResetPassword = ({ API_USER }) => {
       <div className="login__form">
         <h1 className="login__title">Reset Password</h1>
         <form onSubmit={handleReset}>
+
           <div className="login__box">
             <i className="ri-lock-2-line login__icon"></i>
             <div className="login__box-input">
@@ -42,15 +43,20 @@ const ResetPassword = ({ API_USER }) => {
                 type="password"
                 className="login__input"
                 placeholder=" "
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
                 required
               />
               <label className="login__label">New Password</label>
             </div>
           </div>
+
           <button type="submit" className="login__button">Reset Password</button>
-          {message && <p>{message}</p>}
+           {message && <div className="alert alert-warning d-flex align-items-center" style={{position:'relative', marginTop:'25px'}} role="alert">
+        <div>
+          {`⚠️ ${message}`}
+        </div>
+      </div>}
         </form>
       </div>
     </div>
