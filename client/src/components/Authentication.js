@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Authentication.css';
 import apiRequest from '../apiRequest';
+
+
+
 
 const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated }) => {
   const reqAPI = `${API_USER}/Users`;
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
+  const location = useLocation();
+  const From = location.state.from;
+  console.log(From)
   const [User, setUser] = useState({
     name: '',
     email: '',
@@ -46,7 +52,11 @@ const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated }) => {
         console.log(result.data.token);
         setUser({ name: '', email: '', password: '', address: '' });
         alert(result.data.message);
-        navigate(-1);
+        if (From === '/reset-password') {
+      navigate('/');
+    } else {
+      navigate(-1);
+    }
       }
     } catch (err) {
       console.error("User error: ", err);
@@ -74,7 +84,12 @@ const handleLogin = async () => {
       localStorage.setItem("user", JSON.stringify(result.data));
       console.log(result.data.token);
       setIsAuthenticated(true);
+      if (From === '/reset-password') {
+        navigate('/');
+      }
+   else {
       navigate(-1);
+    }
     }
   } catch (err) {
     console.error("Login error:", err);

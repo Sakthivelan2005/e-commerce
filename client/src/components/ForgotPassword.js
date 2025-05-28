@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import apiRequest from '../apiRequest';
 import './Authentication.css';
-import { useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 const ForgotPassword = ({ API_USER }) => {
   const [email, setEmail] = useState('');
@@ -49,7 +49,7 @@ const ForgotPassword = ({ API_USER }) => {
        navigate(
         '/reset-password',{
           state:{
-            email: {email}
+            email,
           }
         }
        )

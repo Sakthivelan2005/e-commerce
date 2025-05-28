@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 const ResetPassword = ({ API_USER }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const {email} = location.state.email || {};
+  const email = location.state.email || {};
   const [newPassword, setNewPassword] = useState('');
-  console.log(email, newPassword)
   const [message, setMessage] = useState('');
   const handleReset = async (e) => {
     e.preventDefault();
@@ -24,7 +23,11 @@ const ResetPassword = ({ API_USER }) => {
         setMessage(res.message);
       } else {
         setMessage("Password reset successfully.");
-        navigate('/Authentication')
+        navigate('/Authentication',{
+          state:{ 
+            from:'/reset-password'
+          }
+        })
         
       }
     } catch (err) {
