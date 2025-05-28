@@ -15,7 +15,7 @@ import ResetPassword from './components/ResetPassword';
 function App({Title}) {
 
    const API_URL = 'https://fakestoreapi.com/products';
-   const API_USER = 'https://e-commerce-qa5o.onrender.com/';   
+   const API_USER = 'https://e-commerce-qa5o.onrender.com';   
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return !!localStorage.getItem("token");
   })
