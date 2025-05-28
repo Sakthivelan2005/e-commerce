@@ -76,7 +76,7 @@ router.post('/forgot-password', async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ message: 'User not found' });
-    
+
     if (otpStore.has(email)) {
   const existing = otpStore.get(email);
   if (Date.now() < existing.expiresAt - 3 * 60 * 1000) {
@@ -110,7 +110,6 @@ router.post('/forgot-password', async (req, res) => {
   }
 });
 
-
 router.post('/verify-otp', (req, res) => {
   const { email, otp } = req.body;
 
@@ -119,27 +118,28 @@ router.post('/verify-otp', (req, res) => {
     return res.status(400).json({ message: 'Invalid or expired OTP' });
   }
 
+  otpStore.set(email, { ...data, verified: true });
+
   res.json({ message: 'OTP verified' });
 });
 
-
 router.post('/reset-password', async (req, res) => {
-  const { email, otp, newPassword } = req.body;
+  const { email, newPassword } = req.body; 
 
-  const data = otpStore.get(email);
-  if (!data || data.otp !== otp || Date.now() > data.expiresAt) {
-    return res.status(400).json({ message: 'Invalid or expired OTP' });
+   if (!email) {
+    return res.status(400).json({ message: 'Email not received, Please verify your Email First'});
+  }
+  
+  const result = otpStore.get(email);
+  if (!result || !result.verified) {
+    return res.status(400).json({ message: `OTP not verified`});
   }
 
-  try {
-    const hashed = await bcrypt.hash(newPassword, 10);
-    await User.findOneAndUpdate({ email }, { password: hashed });
+  const hashed = await bcrypt.hash(newPassword, 10);
+  await User.findOneAndUpdate({ email }, { password: hashed });
 
-    otpStore.delete(email);
-    res.json({ message: 'Password reset successfully' });
-  } catch (err) {
-    res.status(500).json({ message: 'Error resetting password', error: err });
-  }
+  otpStore.delete(email);
+  res.json({ message: 'Password reset successfully' });
 });
 
 
