@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { GoogleLogin } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Authentication.css';
 import apiRequest from '../apiRequest';
 
@@ -38,14 +38,14 @@ const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated }) => {
       const result = await apiRequest(reqAPI, PostOption);
       console.log('Result: ',result,'\nData sending: ',User,'\ndata posted: ',PostOption);
       if (result.error) {
-        alert(result.message || 'Sign up Failed');
+        alert(result.data.message || 'Sign up Failed');
       } else {
         setIsAuthenticated(true)
         localStorage.setItem("token", result.data.token);
         localStorage.setItem("user", JSON.stringify(result.data));
         console.log(result.data.token);
         setUser({ name: '', email: '', password: '', address: '' });
-        alert(result.message);
+        alert(result.data.message);
         navigate(-1);
       }
     } catch (err) {
@@ -68,7 +68,7 @@ const handleLogin = async () => {
     
     console.log('result: ', result);
     if (result.error) {
-      alert(`${result.message}`);
+      alert(`${result.data.message}`);
     } else {
       localStorage.setItem("token", result.data.token);
       localStorage.setItem("user", JSON.stringify(result.data));
@@ -223,7 +223,9 @@ useEffect(() => {
                   <input type="checkbox" className="login__check-input" id="login-check" />
                   <label htmlFor="login-check" className="login__check-label">Remember me</label>
                 </div>
-                <p className="login__forgot">Forgot Password?</p>
+                <Link
+                to='/ForgetPassword'
+                className="login__forgot">Forgot Password?</Link>
               </div>
 
               <button type="submit" className="login__button">

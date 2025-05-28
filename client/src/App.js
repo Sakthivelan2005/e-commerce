@@ -10,6 +10,8 @@ import Authentication from './components/Authentication';
 import Footer from './Footer';
 import './App.css'
 import axios from 'axios';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 function App({Title}) {
 
    const API_URL = 'https://fakestoreapi.com/products';
@@ -110,6 +112,14 @@ function App({Title}) {
              isAuthenticated = {isAuthenticated}
              setIsAuthenticated = {setIsAuthenticated}
               />} />
+          <Route path='/ForgetPassword' element={
+            <ForgotPassword 
+             API_USER = {API_USER}
+              />} />
+          <Route path="/reset-password" element={
+            <ResetPassword 
+            API_USER={API_USER} 
+            />} />
        </Routes>
        <Footer />
     </Router>
