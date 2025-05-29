@@ -1,0 +1,115 @@
+.orders-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffff;
+}
+
+.orders-title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.order-card {
+  border: 1px solid #ddd;
+  margin-bottom: 40px;
+  padding: 20px;
+  background-color: #f9f9f9;
+}
+
+.order-details {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center the block itself */
+  padding: 20px;
+  background-color: #fafafa;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 30px;
+  max-width: 700px;
+  margin-inline: auto;
+  border-radius: 10px;
+}
+
+.order-row {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px dashed #ddd;
+}
+
+.order-label {
+  font-weight: 650;
+  flex-basis: 30%;
+  text-align: left;
+}
+
+.order-value {
+  flex-basis: 65%;
+  text-align: left;
+  word-break: break-word;
+}
+
+
+.items-title {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 20px 0 10px;
+  color: #222;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.items-table th,
+.items-table td {
+  border: 1px solid #ccc;
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.items-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+.mobile-table {
+  width: 100%;
+  margin-top: 15px;
+  border: 1px solid #ccc;
+}
+
+.mobile-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mobile-table th,
+.mobile-table td {
+  border: 1px solid #ccc;
+  padding: 8px 10px;
+  text-align: left;
+}
+
+.mobile-table th {
+  background-color: #f5f5f5;
+}
+
+
+ @media (max-width: 480px) {
+    .order-row{
+        font-size: 13px;
+    }
+    
+}

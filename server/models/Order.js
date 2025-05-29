@@ -1,13 +1,18 @@
 const mongoose = require('mongoose');
 
-const OrderSchema = new mongoose.Schema(
-    {
-      user:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-      },
+const OrderSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    refPath: 'userModel'
+  },
+  userModel: {
+    type: String,
+    required: true,
+    enum: ['User', 'GoogleUsers']
+  },
       country: String,
+      currency: String,
       items: [{
         id:{
           type: Number,

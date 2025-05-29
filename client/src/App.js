@@ -30,6 +30,7 @@ function App({Title}) {
       });
   }, []);
 
+  const [isGoogleUser, setIsGoogleUser] = useState(false);
   const [country, setCountry] = useState('India');
   const handleCountry = (event) => {
     setCountry(event.target.value);
@@ -97,6 +98,7 @@ function App({Title}) {
           countryToCurrency={countryToCurrency}
           countryToCurrencySymbol={countryToCurrencySymbol}
           API_USER = {API_USER} 
+          isGoogleUser={isGoogleUser}
           isAuthenticated = {isAuthenticated}/>
           } />
         <Route path='/product/:id' element={
@@ -111,6 +113,7 @@ function App({Title}) {
              API_USER = {API_USER}
              isAuthenticated = {isAuthenticated}
              setIsAuthenticated = {setIsAuthenticated}
+             setIsGoogleUser = {setIsGoogleUser}
               />} />
           <Route path='/ForgetPassword' element={
             <ForgotPassword 

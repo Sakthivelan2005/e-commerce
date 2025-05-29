@@ -4,12 +4,13 @@ import './Cart.css';
 import apiRequest from '../apiRequest';
 import { useNavigate } from 'react-router-dom';
 
-function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol, API_USER, isAuthenticated }) {
+function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol, API_USER, isAuthenticated, isGoogleUser}) {
   const { cartItems, removeFromCart, setCartItems  } = useCart();
   const [exchangeRate, setExchangeRate] = useState(null);
   const [deliveryAddress, setDeliveryAddress] = useState('');
   const [pinCode, setPinCode] = useState('');
   const [isPlaceOrder, setIsPlaceOrder] = useState(false);
+  const User = isGoogleUser? 'GoogleUsers' : 'User';
   const API_Currency = 'https://v6.exchangerate-api.com/v6/bc074b7ceb0708ddab718f71/latest/USD';
   const navigate = useNavigate();
 
@@ -42,12 +43,13 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
     const token = localStorage.getItem("token")
     console.log(token);
     const orderData = {
+      userModel: User,
       country: selectedCountry,
+      currency: currencySymbol,
       items: cartItems.map(item => ({
         id: item.id,
         title: item.title,
         price: (item.price * rate).toFixed(2),
-        currencySymbol: currencySymbol,
         quantity: item.quantity,
         subtotal:(item.quantity * item.price * rate).toFixed(2)
       })),

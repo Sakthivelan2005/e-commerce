@@ -4,8 +4,9 @@ import { jwtDecode } from "jwt-decode";
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Authentication.css';
 import apiRequest from '../apiRequest';
+import Orders from './Orders';
 
-const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated }) => {
+const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated, setIsGoogleUser }) => {
   const reqAPI = `${API_USER}/Users`;
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
@@ -122,6 +123,9 @@ useEffect(() => {
         >
           Logout
         </button>
+        <Orders
+        API_USER={API_USER}
+        />
       </div>
     ) : (
     <div className="login">
@@ -276,6 +280,7 @@ console.log(googleUserLogin)
                 localStorage.setItem("user", JSON.stringify(loginResult.data));
                 console.log(loginResult.data);
                 setUser({ name: '', email: '', password: '', address: '' });
+                setIsGoogleUser(true);
                 alert(loginResult.data.message);
                   }
                 }

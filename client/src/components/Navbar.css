@@ -31,7 +31,6 @@
     transform: scale(1.15);
   }
   
-  /* Responsive: Bottom nav for mobile */
   @media (max-width: 480px) {
     .navbar {
       position: fixed;
