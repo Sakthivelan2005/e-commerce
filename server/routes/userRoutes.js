@@ -36,6 +36,10 @@ router.post('/Users', async (req, res) => {
     return res.status(400).json({ message: 'Email and password are required' });
   }
 
+  if(password < 4){
+return res.status(408).json({message: 'Password must be alteast 4 characters'})
+  }
+
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {

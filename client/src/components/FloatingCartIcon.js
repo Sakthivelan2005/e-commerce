@@ -6,7 +6,7 @@ import './FloatingCartIcon.css';
 
 const FloatingCartIcon = () => {
   const { CartCount, cartItems } = useCart();
-  const iconSize = 35 + Math.min(CartCount * 5, 35);
+  const iconSize = 35 + Math.min(CartCount *3, 15);
 
   return (
     <div className="floating-cart-container">
@@ -16,7 +16,7 @@ const FloatingCartIcon = () => {
           style={{
             width: `${iconSize}px`,
             height: `${iconSize}px`,
-            fontSize: `${iconSize - 10}px`,
+            fontSize: `${iconSize - 5}px`,
           }}
         >
           🛒

@@ -99,7 +99,7 @@ if(isAddtoCart){
 >
   Add To Cart
 </button>
-{!isAddtoCart ? (<div className="alert alert-success d-flex align-items-center" role="alert">
+{isAddtoCart ? (<div className="alert alert-success d-flex align-items-center" role="alert">
         <div>
           {`✅ ${product.title} is added to Cart`}
         </div>

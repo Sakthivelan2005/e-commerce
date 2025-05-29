@@ -81,13 +81,13 @@
 }
 
 .items-table th {
-  background-color: #f0f0f0;
+  background-color: #6ba4ff;
   font-weight: bold;
 }
 .mobile-table {
   width: 100%;
   margin-top: 15px;
-  border: 1px solid #ccc;
+  border: 1px solid #cccccc;
 }
 
 .mobile-table table {
@@ -97,13 +97,13 @@
 
 .mobile-table th,
 .mobile-table td {
-  border: 1px solid #ccc;
+  border: 1px solid #212121;
   padding: 8px 10px;
   text-align: left;
 }
 
 .mobile-table th {
-  background-color: #f5f5f5;
+  background-color: #09e5ff;
 }
 
 

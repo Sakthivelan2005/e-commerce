@@ -60,8 +60,12 @@ console.log(orders)
                   </tr>
                 </thead>
                 <tbody>
-                  {order.items.map(item => (
+                  {order.items.map((item, index) => (
                     <React.Fragment key={item._id}>
+                        <tr>
+                        <td><strong>S.NO</strong></td>
+                        <td>{index+1}</td>
+                      </tr>
                       <tr>
                         <td><strong>Title</strong></td>
                         <td>{item.title}</td>
@@ -78,14 +82,14 @@ console.log(orders)
                         <td><strong>Subtotal</strong></td>
                         <td>{order.currency} {item.subtotal}</td>
                       </tr>
+                      <br></br>
                     </React.Fragment>
                   ))}
-                  <tr>
-                    <td><strong>Total</strong></td>
-                    <td>{order.currency} {order.total}</td>
-                  </tr>
                 </tbody>
               </table>
+                <div className="cart-total">
+          <h3>Total: {`${order.currency} ${order.total}`}</h3>
+        </div>
             </div>
           ) : (
             <div className="table-wrapper">
@@ -107,6 +111,11 @@ console.log(orders)
                       <td>{order.currency}{item.subtotal}</td>
                     </tr>
                   ))}
+                    <tr>
+                        <td colSpan="3"><strong>Total</strong></td>
+                        <td>{order.currency}{order.total}</td>
+
+                    </tr>
                 </tbody>
               </table>
             </div>
