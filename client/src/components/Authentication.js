@@ -5,16 +5,12 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import './Authentication.css';
 import apiRequest from '../apiRequest';
 
-
-
-
 const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated }) => {
   const reqAPI = `${API_USER}/Users`;
   const [isLogin, setIsLogin] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
   const From = location.state?.from;
-  console.log(From)
   const [User, setUser] = useState({
     name: '',
     email: '',
@@ -42,7 +38,6 @@ const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated }) => {
 
     try {
       const result = await apiRequest(reqAPI, PostOption);
-      console.log('Result: ',result,'\nData sending: ',User,'\ndata posted: ',PostOption);
       if (result.error) {
         alert(result.data.message || 'Sign up Failed');
       } else {
@@ -76,7 +71,6 @@ const handleLogin = async () => {
   try {
      const result = await apiRequest(`${API_USER}/login`, loginOptions);
     
-    console.log('result: ', result);
     if (result.error) {
       alert(`${result.data.message}`);
     } else {
@@ -87,9 +81,9 @@ const handleLogin = async () => {
       if (From === '/reset-password') {
         navigate('/');
       }
-   else {
-      navigate(-1);
-    }
+      else {
+        navigate(-1);
+      }
     }
   } catch (err) {
     console.error("Login error:", err);
@@ -257,30 +251,37 @@ useEffect(() => {
           <GoogleLogin
            onSuccess={async (credentialResponse) => {
             const decoded = jwtDecode(credentialResponse.credential);
-          
-            const googleUser = {
+            
+              const googleUserLogin= {
               name: decoded.name,
               email: decoded.email,
+              googleUser: true
             };
-          
+console.log(googleUserLogin)
             try {
-              const data = await apiRequest(reqAPI);
-              const existingUser = data.find((user) => user.email === googleUser.email);
-          
-              if (!existingUser) {
-                const PostOption = {
+            
+              const PostOption = {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify(googleUser)
+                  body: JSON.stringify(googleUserLogin)
                 };
-                const loginResult = await apiRequest(reqAPI, PostOption);
-                setUser(googleUser);
-               localStorage.setItem("user", JSON.stringify(loginResult.data));
-              navigate(-1);
-              setIsAuthenticated(true)
-              }
-            } catch (error) {
+
+                const loginResult = await apiRequest(`${API_USER}/google-login`, PostOption);
+                  if(loginResult.error){
+                    alert(loginResult.data.message || "Login Failed")
+                  }
+                  else{
+                setIsAuthenticated(true)
+                localStorage.setItem("token", loginResult.data.token);
+                localStorage.setItem("user", JSON.stringify(loginResult.data));
+                console.log(loginResult.data);
+                setUser({ name: '', email: '', password: '', address: '' });
+                alert(loginResult.data.message);
+                  }
+                }
+              catch (error) {
               console.error("Google login error:", error);
+              alert(error.message)
             }
           }}
           

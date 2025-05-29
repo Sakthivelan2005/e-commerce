@@ -6,6 +6,7 @@ const User = require('../models/User');
 const authenticateToken = require('../middleware/authMiddleware');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
+const GoogleUsers = require('../models/GoogleUsers');
 
 const otpStore = new Map();
 
@@ -13,6 +14,15 @@ const otpStore = new Map();
 router.get('/Users', authenticateToken, async (req, res) => {
   try {
     const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    res.status(500).json({ message: 'Error fetching users', error });
+  }
+});
+
+router.get('/google-login', async (req, res) => {
+  try {
+    const users = await GoogleUsers.find();
     res.json(users);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching users', error });
@@ -50,6 +60,9 @@ router.post('/Users', async (req, res) => {
 // POST login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
 
   try {
     const user = await User.findOne({ email });
@@ -67,6 +80,51 @@ router.post('/login', async (req, res) => {
     res.status(200).json({ message: 'Login successful', token, user });
   } catch (err) {
     res.status(500).json({ message: 'Server error', error: err });
+  }
+});
+
+router.post('/google-login', async (req, res) => {
+  const { name, email, googleUser } = req.body;
+
+  if (!email || !name) {
+    return res.status(400).json({ message: 'Email and name are required' });
+  }
+  try {
+    let user = await GoogleUsers.findOne({ email });
+
+    if (!user) {
+      // Create new Google user
+      const newUser = new GoogleUsers({
+        name,
+        email,
+        googleUser
+      });
+     const user = newUser.save();
+      const token = jwt.sign(
+        { id: user._id, email: user.email },
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' }
+      );
+
+      return res.status(201).json({ message: 'Google user created', token, user });
+    }
+
+
+    if (!googleUser) {
+      return res.status(403).json({ message: 'Use standard login for this account' });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '1h' }
+    );
+
+    return res.status(200).json({ message: 'Google login successful', token, user });
+
+  } catch (error) {
+    console.error('Google login error:', error);
+    return res.status(500).json({ message: 'Server error', error });
   }
 });
 

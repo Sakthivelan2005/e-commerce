@@ -3,13 +3,17 @@ require('dotenv').config(); // Load .env variables
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const helmet = require('helmet')
 
 const userRoutes = require('./routes/userRoutes');
 const orderRoutes = require('./routes/orderRoutes');
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:3000', 'https://kirana-collection.netlify.app'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Connect to MongoDB
@@ -17,6 +21,8 @@ mongoose.connect(process.env.MONGODB_URL).then(() => console.log('✅ MongoDB Co
   .catch(err => console.error('❌ Connection failed', err));
 
 // Routes
+app.use(helmet({crossOriginOpenerPolicy: false}));
+
 app.use('/', userRoutes);
 app.use('/', orderRoutes);
 
