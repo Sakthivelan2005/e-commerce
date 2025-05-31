@@ -40,12 +40,12 @@ const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated, setIsGo
     try {
       const result = await apiRequest(reqAPI, PostOption);
       if (result.error) {
-        alert(result.data.message || 'Sign up Failed');
+        alert(result.message || 'Sign up Failed');
       } else {
         setIsAuthenticated(true)
         localStorage.setItem("token", result.data.token);
         localStorage.setItem("user", JSON.stringify(result.data));
-        console.log(result.data.token);
+        console.log(result);
         setUser({ name: '', email: '', password: '', address: '' });
         alert(result.data.message);
         if (From === '/reset-password') {
@@ -55,7 +55,7 @@ const Authentication = ({ API_USER, isAuthenticated, setIsAuthenticated, setIsGo
     }
       }
     } catch (err) {
-      console.error("User error: ", err);
+      alert("User error: ", err);
     }
   };
 
@@ -73,11 +73,12 @@ const handleLogin = async () => {
      const result = await apiRequest(`${API_USER}/login`, loginOptions);
     
     if (result.error) {
-      alert(`${result.data.message}`);
+      alert(`${result.message}`);
     } else {
       localStorage.setItem("token", result.data.token);
       localStorage.setItem("user", JSON.stringify(result.data));
       console.log(result.data.token);
+      alert(result.data.message);
       setIsAuthenticated(true);
       if (From === '/reset-password') {
         navigate('/');
@@ -87,7 +88,7 @@ const handleLogin = async () => {
       }
     }
   } catch (err) {
-    console.error("Login error:", err);
+    alert("Login error:", err.message);
   }
 };
   
