@@ -13,6 +13,27 @@ function CartList({ selectedCountry, countryToCurrency, countryToCurrencySymbol,
   const User = isGoogleUser? 'GoogleUsers' : 'User';
   const API_Currency = 'https://v6.exchangerate-api.com/v6/bc074b7ceb0708ddab718f71/latest/USD';
   const navigate = useNavigate();
+useEffect(() =>{
+    const fetchAddress = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch(`${API_USER}/Users`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        if (!res.ok) throw new Error('Failed to fetch orders');
+        const data = await res.json();
+        console.log(data);
+        setDeliveryAddress(data[0].address);
+      } catch (err) {
+        console.error('Error:', err);
+      }
+    };
+fetchAddress();
+},[]);
+  console.log(deliveryAddress);
 
   useEffect(() => {
     const fetchCurrency = async () => {

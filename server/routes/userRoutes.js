@@ -4,21 +4,18 @@ const jwt = require('jsonwebtoken');
 const router = express.Router();
 const User = require('../models/User');
 const authenticateToken = require('../middleware/authMiddleware');
-const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer')
 const crypto = require('crypto');
 const GoogleUsers = require('../models/GoogleUsers');
+const Order = require('../models/Order');
 
 const otpStore = new Map();
 
 // GET all users (protected)
 router.get('/Users', authenticateToken, async (req, res) => {
-  try {
-    const users = await User.find();
-    res.json(users);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching users', error });
-  }
-});
+ const Orders = await User.find({email: req.user.email});
+     return res.status(201).json(Orders)
+ } )
 
 router.get('/google-login', async (req, res) => {
   try {
