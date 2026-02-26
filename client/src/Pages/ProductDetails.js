@@ -60,7 +60,7 @@ if(isAddtoCart){
   console.log(product)
   return (isLoading)?  ( 
     <>
-    <img src={loading} alt='Loading...' />
+    <img src={loading} alt='Loading...' width={200} height={300}/>
     <p>Fetching Products</p>
     </>
   ) : (
