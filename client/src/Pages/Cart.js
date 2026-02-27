@@ -32,7 +32,7 @@ useEffect(() =>{
       }
     };
 fetchAddress();
-},[]);
+},[API_USER]);
   console.log(deliveryAddress);
 
   useEffect(() => {
