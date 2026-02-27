@@ -28,7 +28,7 @@ function App({Title}) {
       .catch(err => {
         console.error('Error:', err);
       });
-  }, []);
+  }, [API_USER]);
 
   const [isGoogleUser, setIsGoogleUser] = useState(false);
   const [country, setCountry] = useState('India');
